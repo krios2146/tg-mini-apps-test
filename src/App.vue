@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { retrieveLaunchParams, type LaunchParams } from '@tma.js/sdk'
 import { ref } from 'vue'
-import axios, { AxiosError } from 'axios'
+import axios, { AxiosError, type AxiosResponse } from 'axios'
 
 const launchParams = ref<LaunchParams | undefined>()
 const launchParamsError = ref()
-const response = ref()
+const response = ref<AxiosResponse>()
 const error = ref()
 
 try {
@@ -17,7 +17,10 @@ try {
 const url = import.meta.env.VITE_BACKEND_URL
 
 axios
-  .post(url, launchParams.value?.initDataRaw)
+  .post(`${url}/auth/sign-in/by-telegram`, {
+    initDataRaw: launchParams.value?.initDataRaw,
+    initData: launchParams.value?.initData
+  })
   .then((apiResponse) => (response.value = apiResponse))
   .catch((apiError: AxiosError) => (error.value = apiError))
 </script>
@@ -33,7 +36,9 @@ axios
     </div>
 
     <h1>API Response</h1>
-    <div>{{ response }}</div>
+    <pre>{{ JSON.stringify(response, null, 2) }}</pre>
+
+    <div v-if="response?.status === 200">Telegram auth is successful</div>
 
     <div v-if="error">
       <h1>API Error</h1>
