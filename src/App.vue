@@ -20,14 +20,6 @@ const copyInitData = async () => {
   }
 }
 
-const pasteFromClipboard = async () => {
-  try {
-    inputText.value = window.Telegram.WebApp.readTextFromClipboard()
-  } catch (err) {
-    console.error('Failed to paste:', err)
-  }
-}
-
 const shareText = () => {
   window.Telegram.WebApp.shareMessage(inputText.value)
 }
@@ -37,9 +29,9 @@ const shareText = () => {
   <div class="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
     <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-2xl">
       <h1 class="text-2xl font-bold text-gray-800 mb-4">Init Params</h1>
-      <pre class="bg-gray-200 p-4 rounded-md text-sm text-gray-700 overflow-auto">
-        {{ JSON.stringify(launchParams?.initData, null, 2)?.trim() }}
-      </pre>
+      <pre class="bg-gray-200 p-4 rounded-md text-sm text-gray-700 overflow-auto">{{
+        JSON.stringify(launchParams?.initData, null, 2)?.trim()
+      }}</pre>
 
       <div class="flex gap-4 mt-4">
         <button
@@ -67,13 +59,6 @@ const shareText = () => {
             type="text"
             class="border border-gray-300 rounded-md p-2 flex-1 focus:ring focus:ring-blue-300 outline-none"
           />
-
-          <button
-            @click="pasteFromClipboard"
-            class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md transition"
-          >
-            Paste
-          </button>
         </div>
 
         <button
