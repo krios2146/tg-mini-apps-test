@@ -13,13 +13,11 @@ try {
 </script>
 
 <template>
-  <header>
-    <h1>Init params</h1>
-    <pre>{{ JSON.stringify(launchParams?.initData, null, 2) }}</pre>
+  <h1>Init params</h1>
+  <pre>{{ JSON.stringify(launchParams?.initData, null, 2) }}</pre>
 
-    <div v-if="launchParamsError">
-      <h1>Init params error</h1>
-      <pre>{{ launchParamsError }}</pre>
-    </div>
-  </header>
+  <div v-if="launchParamsError">
+    <h1>Init params error</h1>
+    <pre>{{ launchParamsError }}</pre>
+  </div>
 </template>
