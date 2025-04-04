@@ -22,7 +22,7 @@ const copyInitData = async () => {
 
 const pasteFromClipboard = async () => {
   try {
-    inputText.value = await navigator.clipboard.readText()
+    inputText.value = window.Telegram.WebApp.readTextFromClipboard()
   } catch (err) {
     console.error('Failed to paste:', err)
   }
